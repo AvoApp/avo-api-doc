@@ -33,11 +33,11 @@ tags:
     externalDocs:
       description: Find out more about our store
       url: 'http://swagger.io'
+  - name: task
+  - name: tevkil
 paths:
   /tasks:
     post:
-      tags:
-        - pet
       summary: Create task ad
       description: creates task ad
       operationId: createTask
@@ -138,6 +138,9 @@ paths:
             schema:
               type: object
               properties: {}
+      tags:
+        - task
+        - tevkil
     put:
       tags:
         - pet
