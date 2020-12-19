@@ -36,7 +36,7 @@ tags:
   - name: task
   - name: tevkil
 paths:
-  '/tasks/{id}':
+  /tasks:
     post:
       summary: Create task ad
       description: creates task ad
@@ -215,18 +215,322 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Pet'
-    parameters:
-      - schema:
-          type: number
-        name: id
-        in: path
-        required: true
+    parameters: []
     get:
       summary: ''
       operationId: getTask
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  list:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - id
+                        - category
+                        - duration
+                        - description
+                        - summary
+                        - status
+                        - taskTime
+                        - created
+                        - updated
+                        - budget
+                      properties:
+                        id:
+                          type: number
+                        category:
+                          type: string
+                          minLength: 1
+                        duration:
+                          type: number
+                        creator:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            firstName:
+                              type: string
+                              minLength: 1
+                            lastName:
+                              type: string
+                              minLength: 1
+                            title:
+                              type: string
+                              minLength: 1
+                            phone:
+                              type: string
+                              minLength: 1
+                            email:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - firstName
+                            - lastName
+                            - title
+                            - phone
+                            - email
+                        assignee:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            firstName:
+                              type: string
+                              minLength: 1
+                            lastName:
+                              type: string
+                              minLength: 1
+                            title:
+                              type: string
+                              minLength: 1
+                            phone:
+                              type: string
+                              minLength: 1
+                            email:
+                              type: string
+                              minLength: 1
+                          required:
+                            - id
+                            - firstName
+                            - lastName
+                            - title
+                            - phone
+                            - email
+                        description:
+                          type: string
+                          minLength: 1
+                        summary:
+                          type: string
+                          minLength: 1
+                        status:
+                          type: string
+                          minLength: 1
+                        taskTime:
+                          type: string
+                          minLength: 1
+                        created:
+                          type: string
+                          minLength: 1
+                        updated:
+                          type: string
+                          minLength: 1
+                        budget:
+                          type: number
+                        place:
+                          type: object
+                          properties:
+                            cityDisplayName:
+                              type: string
+                              minLength: 1
+                            cityId:
+                              type: string
+                              minLength: 1
+                            districtDisplayName:
+                              type: string
+                              minLength: 1
+                            districtId:
+                              type: string
+                              minLength: 1
+                            placeName:
+                              type: string
+                              minLength: 1
+                            latitude:
+                              type: number
+                            longitude:
+                              type: number
+                            address:
+                              type: string
+                              minLength: 1
+                          required:
+                            - cityDisplayName
+                            - cityId
+                            - districtDisplayName
+                            - districtId
+                            - placeName
+                            - latitude
+                            - longitude
+                            - address
+                required:
+                  - list
+              examples:
+                example-1:
+                  value:
+                    list:
+                      - id: 1
+                        category: tevkil
+                        duration: 1.5
+                        creator:
+                          id: 1
+                          firstName: Ebru
+                          lastName: Ata
+                          title: Av.
+                          phone: '5552343121'
+                          email: ebru.ata@gmail.com
+                        assignee:
+                          id: 2
+                          firstName: Ahmet
+                          lastName: Kadıoğlu
+                          title: Av.
+                          phone: '5552343132'
+                          email: ahmetkadioglu@gmail.com
+                        description: 'Beşiktaştaki davaya bakilacak. cogito ergo sum..LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took '
+                        summary: adliyedki davaya bakilacak
+                        status: OPEN
+                        taskTime: '2021-04-23T18:25:00.511Z'
+                        created: '2020-04-23T18:25:00.511Z'
+                        updated: '2020-09-23T18:25:00.511Z'
+                        budget: 250
+                        place:
+                          cityDisplayName: İstanbul
+                          cityId: '34'
+                          districtDisplayName: Şişli
+                          districtId: '3401'
+                          placeName: Çağlayan Adliyesi
+                          latitude: 41.015137
+                          longitude: 28.97953
+                          address: 'Çağlayan Meydanı Şişli Merkez Mah. Abide-i Hürriyet Cad. No: 22'
+                      - id: 2
+                        category: tevkil
+                        duration: 1.5
+                        creator:
+                          id: 1
+                          firstName: Ebru
+                          lastName: Ata
+                          title: Av.
+                          phone: '5552343121'
+                          email: ebru.ata@gmail.com
+                        assignee:
+                          id: 2
+                          firstName: Ahmet
+                          lastName: Kadıoğlu
+                          title: Av.
+                          phone: '5552343132'
+                          email: ahmetkadioglu@gmail.com
+                        description: 'Beşiktaştaki davaya bakilacak. cogito ergo sum..LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took '
+                        summary: adliyedki davaya bakilacak
+                        status: ASSIGNED
+                        taskTime: '2021-04-23T18:25:00.511Z'
+                        created: '2020-04-23T18:25:00.511Z'
+                        updated: '2020-09-23T18:25:00.511Z'
+                        budget: 250
+                        place:
+                          cityDisplayName: İstanbul
+                          cityId: '34'
+                          districtDisplayName: Şişli
+                          districtId: '3401'
+                          placeName: Çağlayan Adliyesi
+                          latitude: 41.015137
+                          longitude: 28.97953
+                          address: 'Çağlayan Meydanı Şişli Merkez Mah. Abide-i Hürriyet Cad. No: 22'
+                      - id: 3
+                        category: tevkil
+                        duration: 2.5
+                        creator:
+                          id: 1
+                          firstName: Ali
+                          lastName: Ata
+                          title: Av.
+                          phone: '5552343101'
+                          email: ali.ata@gmail.com
+                        assignee:
+                          id: 2
+                          firstName: Ahmet
+                          lastName: Kadıoğlu
+                          title: Av.
+                          phone: '5552343132'
+                          email: ahmetkadioglu@gmail.com
+                        description: 'Beşiktaştaki davaya bakilacak. cogito ergo sum..LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took '
+                        summary: adliyedki davaya bakilacak
+                        status: ASSIGNED
+                        taskTime: '2021-04-23T18:25:00.511Z'
+                        created: '2020-04-23T18:25:00.511Z'
+                        updated: '2020-09-23T18:25:00.511Z'
+                        budget: 250
+                        place:
+                          cityDisplayName: İstanbul
+                          cityId: '34'
+                          districtDisplayName: Şişli
+                          districtId: '3401'
+                          placeName: Çağlayan Adliyesi
+                          latitude: 41.015137
+                          longitude: 28.97953
+                          address: 'Çağlayan Meydanı Şişli Merkez Mah. Abide-i Hürriyet Cad. No: 22'
+                      - id: 4
+                        category: tevkil
+                        duration: 2
+                        creator:
+                          id: 4
+                          firstName: Mehmet
+                          lastName: Mürsel
+                          title: Av.
+                          phone: '5552323921'
+                          email: ebru.ata@gmail.com
+                        assignee:
+                          id: 5
+                          firstName: Veli
+                          lastName: Kadıoğlu
+                          title: Av.
+                          phone: '5554343132'
+                          email: ahmetkadioglu@gmail.com
+                        description: 'Anadoludaki davaya bakilacak. cogito ergo sum..LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took '
+                        summary: Belge alınacak bakilacak
+                        status: OPEN
+                        taskTime: '2021-02-25T13:00:00.511Z'
+                        created: '2020-05-23T18:25:00.511Z'
+                        updated: '2020-09-23T18:25:00.511Z'
+                        budget: 250
+                        place:
+                          cityDisplayName: İstanbul
+                          cityId: '34'
+                          districtDisplayName: Kadıköy
+                          districtId: '3402'
+                          placeName: Çağlayan Adliyesi
+                          latitude: 41.015137
+                          longitude: 28.97953
+                          address: 'Çağlayan Meydanı Şişli Merkez Mah. Abide-i Hürriyet Cad. No: 22'
+                      - id: 5
+                        category: tevkil
+                        duration: 1
+                        creator:
+                          id: 4
+                          firstName: Mehmet
+                          lastName: Mürsel
+                          title: Av.
+                          phone: '5552323921'
+                          email: ebru.ata@gmail.com
+                        assignee:
+                          id: 5
+                          firstName: Veli
+                          lastName: Kadıoğlu
+                          title: Av.
+                          phone: '5554343132'
+                          email: ahmetkadioglu@gmail.com
+                        description: 'Anadoludaki davaya bakilacak. cogito ergo sum..LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took '
+                        summary: Belge alınacak bakilacak
+                        status: OPEN
+                        taskTime: '2021-02-25T13:00:00.511Z'
+                        created: '2020-05-23T18:25:00.511Z'
+                        updated: '2020-09-23T18:25:00.511Z'
+                        budget: 250
+                        place:
+                          cityDisplayName: İstanbul
+                          cityId: '34'
+                          districtDisplayName: Kadıköy
+                          districtId: '3402'
+                          placeName: Çağlayan Adliyesi
+                          latitude: 41.015137
+                          longitude: 28.97953
+                          address: 'Çağlayan Meydanı Şişli Merkez Mah. Abide-i Hürriyet Cad. No: 22'
         '400':
           description: not found
         '':
